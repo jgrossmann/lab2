@@ -1,34 +1,34 @@
 `timescale 1ns/1ns
 
 class transaction;
-   rand bit r;
-   rand bit w;
-   rand bit di;
+   rand bit read;
+   rand bit write;
+   rand bit data_i;
    bit rst;
-   bit do;
-   bit rv;
-   bit data;   
+   bit data_o;
+   bit read_valid;
+   bit data_stored;
 
 	function void golden_result;
-		if(r) begin
-			do = data;
-			rv = 1b'1;
+		if(read) begin
+			data_o = data_stored;
+			read_valid = 1b'1;
 		end
 		else begin
-			rv = 1b'0;
+			read_valid = 1b'0;
 		end
-		if(w) begin
-			data = di;
+		if(write) begin
+			data = data_i;
 		end
       $display("%t : %s \n", $realtime, "Computing Golden Result");
 	endfunction
 
 	function bit read_result (bit x, bit y);
-      return (x == do && y == rv);
+      return (x == data_o && y == read_valid);
 	endfunction
    
 	function bit write_result (bit x);
-		return (x == rv);
+		return (x == read_valid);
 	endfunction
 endclass
 
@@ -50,12 +50,12 @@ program tb (ifc.bench ds);
 			 $display("%t : %s \n", $realtime, "Driving New Values");
 			 t.rst <= 1'b0;
 			 ds.cb.reset <= t.rst;
-			 ds.cb.read_enable <= t.r;
-			 ds.cb.write_enable <= t.w;
-			 ds.cb.data_i <= t.di;
+			 ds.cb.read_enable <= t.read;
+			 ds.cb.write_enable <= t.write;
+			 ds.cb.data_i <= t.data_i;
 			 @(ds.cb);
 			 t.golden_result();
-			 if(t.r) begin
+			 if(t.read) begin
 				$display("%t : %s\n", $realtime,t.read_result(ds.cb.data_o, ds.cb.read_valid)?"Pass":"Fail");
 			end
 			if (t.w) begin
