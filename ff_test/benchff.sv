@@ -10,20 +10,22 @@ class transaction;
    bit data_stored;
 
 	function void golden_result;
+		$display("read:%b, write:%b, data:%b",read, write, data_i); 
 		if(read) begin
 			data_o = data_stored;
-			read_valid = 1b'1;
+			read_valid = '1;
 		end
 		else begin
-			read_valid = 1b'0;
+			read_valid = '0;
 		end
 		if(write) begin
-			data = data_i;
+			data_stored = data_i;
 		end
       $display("%t : %s \n", $realtime, "Computing Golden Result");
 	endfunction
 
 	function bit read_result (bit x, bit y);
+		$display("%b, %b, %b, %b", x, data_o, y, read_valid);
       return (x == data_o && y == read_valid);
 	endfunction
    
@@ -36,30 +38,38 @@ program tb (ifc.bench ds);
 	transaction t;
 
 	initial begin
-		repeat (10) begin
+		repeat (5) begin
 			t= new();
 			t.randomize();
-			t.rst <= 1'b1;
-			ds.cb.reset <= t.rst;
+			t.rst = '1;
+			ds.cb.rst <= t.rst;
+			@(ds.cb);
 		end
-		repeat (10000) begin
+
+		repeat(5) begin
+			t = new();
+      	t.rst = '0;
+      	ds.cb.rst <= t.rst;
+			@(ds.cb);
+		end
+
+		repeat (15) begin
 			 t = new();
 			 t.randomize();
-
 			 // drive inputs for next cycle
 			 $display("%t : %s \n", $realtime, "Driving New Values");
-			 t.rst <= 1'b0;
-			 ds.cb.reset <= t.rst;
+			 t.rst = '0;
+			 ds.cb.rst <= t.rst;
 			 ds.cb.read_enable <= t.read;
 			 ds.cb.write_enable <= t.write;
 			 ds.cb.data_i <= t.data_i;
 			 @(ds.cb);
 			 t.golden_result();
 			 if(t.read) begin
-				$display("%t : %s\n", $realtime,t.read_result(ds.cb.data_o, ds.cb.read_valid)?"Pass":"Fail");
+				$display("%t : %s  %s\n", $realtime,"read",t.read_result(ds.cb.data_o, ds.cb.read_valid)?"Pass":"Fail");
 			end
-			if (t.w) begin
-				$display("%t : %s\n", $realtime,t.write_result(ds.cb.read_valid)?"Pass":"Fail");
+			if (t.write) begin
+				$display("%t : %s  %s\n", $realtime,"write",t.write_result(ds.cb.read_valid)?"Pass":"Fail");
 			end
 		end
 	end

@@ -4,9 +4,9 @@ module top;
    bit clk = 1;
    always #5 clk = ~clk;
 
-
+	initial $vcdpluson;
 
    ifc IFC(clk);
-   ff dut(IFC.dut);
+   eff dut(IFC.dut);
    tb bench(IFC.bench);
 endmodule
