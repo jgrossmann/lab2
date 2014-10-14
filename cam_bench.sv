@@ -6,31 +6,43 @@ class transaction;
 	rand bit search;
    rand bit [31:0] data_i;
 	rand bit [31:0] search_data_i;
-	bit [4:0] read_index;
-	bit [4:0] write_index;
-	bit [4:0] search_index;
+	int [4:0] read_index;
+	int [4:0] write_index;
+	int [4:0] search_index;
    bit rst;
    bit [31:0] data_o;
    bit read_valid;
 	bit search_valid;
-   bit [31:0] data_stored;
-	bit written;
+   bit [31:0][31:0] data_stored;
+	bit [31:0] written;
 
 	function void golden_result;
 		if(rst) begin
-			written = '0;
-			data_stored = 5'b00000;
+			for(int i = 0; i < 32; i++) begin
+				written[i] = '0;
+				data_stored[i] = 32'b00000;
+			end
 		end
 		if(read) begin
-			data_o = data_stored;
-			read_valid = (written == '1) ? '1 : '0;
+			data_o = data_stored[read_index];
+			read_valid = (written[read_index] == '1) ? '1 : '0;
 		end
 		else begin
 			read_valid = '0;
 		end
 		if(write) begin
 			if(rst) break;
-			data_stored = data_i;
+			data_stored[write_index] = data_i;
+			written[write_index] = '1;
+		end
+		if(search) begin
+			search_valid = '0;
+			for(int i = 0; i < 32; i++) begin
+				if((search_data_i == data_stored[i]) && written[i]) begin
+					search_index = i;
+					search_valid = '1;
+				end
+			end
 		end
 
 		//TO-DO: INSERT SEARCH CASES/FUNCTIONS
@@ -43,6 +55,10 @@ class transaction;
    
 	function bit write_result (bit x);
 		return (x == read_valid);
+	endfunction
+
+	function bit search_result (int x, bit y)
+		return ((x == search_index) && (y == search_valid));
 	endfunction
 endclass
 
