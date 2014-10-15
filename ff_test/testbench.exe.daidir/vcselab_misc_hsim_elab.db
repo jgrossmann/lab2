@@ -1,5 +1,5 @@
 psSimBaseName                      	testbench.exe
-pDaiDir                            	/home/jg3538/lab2/ff_test/testbench.exe.daidir
+pDaiDir                            	/home/yss2117/lab2/ff_test/testbench.exe.daidir
 destPath                           	csrc/
 hsMainFileCount                    	0
 hsMainFileName                     	dummy
