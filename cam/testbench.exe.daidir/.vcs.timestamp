@@ -31,12 +31,12 @@ cam_pencoder.sv
 cam_test.sv
 eff.sv
 37
-sysc_uni_pwd=/home/jg3538/compHardware/lab1/lab1code
-WORKON_HOME=/home/jg3538/.virtualenvs
+sysc_uni_pwd=/home/yss2117/lab2/cam
+WORKON_HOME=/home/yss2117/.virtualenvs
 VMR_MODE_FLAG=64
 VIRTUALENVWRAPPER_PROJECT_FILENAME=.project
-VIRTUALENVWRAPPER_LOG_DIR=/home/jg3538/.virtualenvs
-VIRTUALENVWRAPPER_HOOK_DIR=/home/jg3538/.virtualenvs
+VIRTUALENVWRAPPER_LOG_DIR=/home/yss2117/.virtualenvs
+VIRTUALENVWRAPPER_HOOK_DIR=/home/yss2117/.virtualenvs
 VCS_MODE_FLAG=64
 VCS_HOME=/sim/synopsys64/vcs
 VCS_DEPTH=0
@@ -47,9 +47,9 @@ TOOL_HOME=/sim/synopsys64/vcs/amd64
 SYN_DIR=/sim/synopsys64
 SYNTH_HOME=/sim/synopsys64/icc
 SYNOPSYS=/sim/synopsys64/icc
-SSH_TTY=/dev/pts/5
-SSH_CONNECTION=24.228.53.131 64536 128.59.15.49 22
-SSH_CLIENT=24.228.53.131 64536 22
+SSH_TTY=/dev/pts/3
+SSH_CONNECTION=24.104.248.121 49288 128.59.15.74 22
+SSH_CLIENT=24.104.248.121 49288 22
 SNPSLMD_LICENSE_FILE=28100@license.cs.columbia.edu:/sim/synopsys64/vcs/flexlm//license.dat
 SCRNAME=vcs
 SCRIPT_NAME=vcs
@@ -70,16 +70,16 @@ FPGA_HOME=/sim/synopsys64/fpga
 FORMALITY_HOME=/sim/synopsys64/formality
 0
 7
-1411663211 cam_test.sv
-1411629491 cam.sv
-1411675783 eff.sv
-1411629282 cam_pencoder.sv
-1411629162 cam_decoder.sv
-1411662449 cam_mux.sv
+1413208937 cam_test.sv
+1413208937 cam.sv
+1413208937 eff.sv
+1413208937 cam_pencoder.sv
+1413208937 cam_decoder.sv
+1413208937 cam_mux.sv
 1322023114 /sim/synopsys64/vcs/amd64/lib/vcsdp.tab
 4
 0 
 1322023672 /sim/synopsys64/vcs/amd64/lib/libvirsim.so
 1322023397 /sim/synopsys64/vcs/amd64/lib/liberrorinf.so
 1322023255 /sim/synopsys64/vcs/amd64/lib/libsnpsmalloc.so
-1413180764 testbench.exe.daidir
+1413387609 testbench.exe.daidir
