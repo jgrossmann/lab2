@@ -31,7 +31,7 @@ eff.sv
 interfaceff.sv
 top.sv
 37
-sysc_uni_pwd=/home/jg3538/lab2
+sysc_uni_pwd=/home/jg3538/lab2/ff_test
 WORKON_HOME=/home/jg3538/.virtualenvs
 VMR_MODE_FLAG=64
 VIRTUALENVWRAPPER_PROJECT_FILENAME=.project
@@ -47,9 +47,9 @@ TOOL_HOME=/sim/synopsys64/vcs/amd64
 SYN_DIR=/sim/synopsys64
 SYNTH_HOME=/sim/synopsys64/icc
 SYNOPSYS=/sim/synopsys64/icc
-SSH_TTY=/dev/pts/5
-SSH_CONNECTION=24.228.53.131 64536 128.59.15.49 22
-SSH_CLIENT=24.228.53.131 64536 22
+SSH_TTY=/dev/pts/16
+SSH_CONNECTION=209.2.226.213 57768 128.59.15.69 22
+SSH_CLIENT=209.2.226.213 57768 22
 SNPSLMD_LICENSE_FILE=28100@license.cs.columbia.edu:/sim/synopsys64/vcs/flexlm//license.dat
 SCRNAME=vcs
 SCRIPT_NAME=vcs
@@ -70,14 +70,14 @@ FPGA_HOME=/sim/synopsys64/fpga
 FORMALITY_HOME=/sim/synopsys64/formality
 0
 5
-1413167192 top.sv
-1413176574 interfaceff.sv
+1413315509 top.sv
+1413245911 interfaceff.sv
 1413178247 eff.sv
-1413178103 benchff.sv
+1413315853 benchff.sv
 1322023114 /sim/synopsys64/vcs/amd64/lib/vcsdp.tab
 4
 0 
 1322023672 /sim/synopsys64/vcs/amd64/lib/libvirsim.so
 1322023397 /sim/synopsys64/vcs/amd64/lib/liberrorinf.so
 1322023255 /sim/synopsys64/vcs/amd64/lib/libsnpsmalloc.so
-1413178290 testbench.exe.daidir
+1413315857 testbench.exe.daidir

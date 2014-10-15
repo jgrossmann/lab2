@@ -38,23 +38,13 @@ program tb (ifc.bench ds);
 	transaction t;
 
 	initial begin
-		repeat (5) begin
-			t= new();
-			t.randomize();
-			t.rst = '1;
-			ds.cb.rst <= t.rst;
-			@(ds.cb);
-		end
+		t= new();
+		t.randomize();
+		t.rst = '1;
+		ds.cb.rst <= t.rst;
+		@(ds.cb);
 
-		repeat(5) begin
-			t = new();
-      	t.rst = '0;
-      	ds.cb.rst <= t.rst;
-			@(ds.cb);
-		end
-
-		repeat (15) begin
-			 t = new();
+		repeat (50) begin
 			 t.randomize();
 			 // drive inputs for next cycle
 			 $display("%t : %s \n", $realtime, "Driving New Values");
@@ -67,9 +57,6 @@ program tb (ifc.bench ds);
 			 t.golden_result();
 			 if(t.read) begin
 				$display("%t : %s  %s\n", $realtime,"read",t.read_result(ds.cb.data_o, ds.cb.read_valid)?"Pass":"Fail");
-			end
-			if (t.write) begin
-				$display("%t : %s  %s\n", $realtime,"write",t.write_result(ds.cb.read_valid)?"Pass":"Fail");
 			end
 		end
 	end
