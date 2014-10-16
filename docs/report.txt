@@ -1,0 +1,52 @@
+﻿John Grossmann
+Yehuds Stuchins
+
+Validation skeleton:
+
+The validation skeleton took 22 lines of code. 7 lines for the interface (no variables), 8 lines for the test bench, and 7 lines for the top module. There were no problems as this was only us writing a skeleton. By skeleton we mean we put in no variables and no logic whatsoever.
+
+
+Makefile and Compilation:
+
+The validation skeleton took 77 lines of code which was mainly declaring variables (not sure if I was supposed to but I put in all of the variables). It took 17 lines for the interface, 30 for the test bench, 25 for the Makefile and 5 for the top module. I didn't include the actual cam files in this count but they were needed to compile because I needed to connect the DUT and bench via the interface or else I was getting an interface not connected error. I also had to add in the timescale to every file that I wanted to compile or I would get an error about not having a timescale. Other than that no issues. I pretty much copied the Makefile from your adder example except I changed the file names.
+
+
+Test Reset:
+
+Only had to add 22 lines of code to test bench which included what happens in the golden result when reset is high. Not much to this test because since this is the only functionality that has been written, the only thing we had to do was read the data and make sure it is all zeros and that all of the valid bits are 0. No bugs found with reset.
+
+Test Read/Write:
+
+Wrote about 40 lines of code. 35 lines in test bench for adding in golden result functionality and testing against real output. About 5 written/changed in the eff.sv file because we found a bug where the read valid bit would always be 0 if the cam was not written to last clock cycle. The source of the bug was that the variable “written” which was high if the flip flop being indexed was previously written too, was being reset to zero after every clock cycle. So after being written to, the flip flop would change the value of written to 1, then the next clock cycle the written variable would change back to 0. That was the only bug found. 
+
+Test Search:
+
+Wrote about 29 lines of code. 24 lines in the test bench for adding in golden result functionality and testing against real output. About 5 lines written/changed in the priority encoder file. We had one bug. Our bug was that the search valid bit sometimes would show as 1 when nothing was found. We believe this was due to the search valid staying at the same value as the previous test. In order to fix this, we added an if statement in the priority encoder which tested for the search enable bit as well as the matching logic result.
+
+
+Incremental Development:
+
+Wrote about 83 lines of code for this. 72 lines in the test bench. Most were from creating the configuration file class because I did not know until 2 days before this was due that we had to include one so we wrote the entire class at one time. Also we added in the mask and density values to the transaction class. 11 lines in the configuration.txt file for variable values. There were a few hiccups with the configuration file class and integrating it into the test bench because it was not part of the skeleton or previous parts of the project. They were all minor issues like not being able to use a “real” data type in a constraint bracket, and figuring out the syntax for parsing files. We also did not know how to set the random seed. We eventually found the function srandom(seed) which did the trick. No bugs in previously implemented code were found however.
+
+
+Test All:
+
+This only took about 15 lines of code because everything was already written. We just deleted a few lines that were the same when testing all of the interfaces. We were not sure if we were supposed to include the  configuration file in this part of the lab or the previous, so we did the previous. However there was 1 error. We found that our priority encoder was not outputting the index of the first found search match, it was outputting the last index. So we had to change all of the case statements. Other than that it was fine.
+
+
+
+Design:
+
+We pretty much just used a top module, an interface, our cam files, and a test bench file. The test bench file contains a configuration class, a transaction class, and our test program. We had separate programs but we merged them into one because they were pretty much the same thing anyway. The configuration class reads data from a config.txt file and assigns the values to variables such as the random seed, the max cycles, the probability densities for enable bits, and the bit masks for the indexes and data. The transaction class holds data being sent to the DUT and then tests the logic against the actual result. Our program just randomizes variables, sends them to the interface, does a clocking block, then tests the results. 
+
+
+Notes:
+
+We only included the code for the flip flop validation, and the test all validation. We pretty much built up our test bench to eventually include all of the functionality in one file so it now is only the test all. In order to test each individual interface, we would just change the settings of the test all (removing the checks for other functionality, etc). 
+
+Our index masks are AND masks.
+
+
+
+
+
